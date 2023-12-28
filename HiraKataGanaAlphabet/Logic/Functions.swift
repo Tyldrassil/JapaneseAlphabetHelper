@@ -26,34 +26,55 @@ func compareCharacterToInput(character: Character, input: String) -> Bool {
 func fetchAlphabetSet(selectedColumns: ColumnSelector) -> [Character] {
     
     var selectedCharacters: [Character] = []
+    var idNum: Int = 0
     
     
     //Adding in vowels
     if (selectedColumns.vowels) {
-        selectedCharacters.append(Character(hiragana: "あ", katakana: "ア", romanji: "a"))
-        selectedCharacters.append(Character(hiragana: "い", katakana: "イ", romanji: "e"))
-        selectedCharacters.append(Character(hiragana: "う", katakana: "ウ", romanji: "i"))
-        selectedCharacters.append(Character(hiragana: "え", katakana: "エ", romanji: "u"))
-        selectedCharacters.append(Character(hiragana: "お", katakana: "オ", romanji: "o"))
+        selectedCharacters.append(Character(id: idNum, hiragana: "あ", katakana: "ア", romanji: "a")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "い", katakana: "イ", romanji: "e")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "う", katakana: "ウ", romanji: "i")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "え", katakana: "エ", romanji: "u")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "お", katakana: "オ", romanji: "o")); idNum += 1
     }
     
     //Adding in K-Column
     if (selectedColumns.kColumn) {
-        selectedCharacters.append(Character(hiragana: "か", katakana: "カ", romanji: "ka"))
-        selectedCharacters.append(Character(hiragana: "き", katakana: "キ", romanji: "ki"))
-        selectedCharacters.append(Character(hiragana: "く", katakana: "ク", romanji: "ku"))
-        selectedCharacters.append(Character(hiragana: "け", katakana: "ケ", romanji: "ke"))
-        selectedCharacters.append(Character(hiragana: "こ", katakana: "コ", romanji: "ko"))
+        selectedCharacters.append(Character(id: idNum, hiragana: "か", katakana: "カ", romanji: "ka")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "き", katakana: "キ", romanji: "ki")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "く", katakana: "ク", romanji: "ku")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "け", katakana: "ケ", romanji: "ke")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "こ", katakana: "コ", romanji: "ko")); idNum += 1
     }
     
     //Adding in S-Column
     if (selectedColumns.sColumn) {
-        selectedCharacters.append(Character(hiragana: "さ", katakana: "サ", romanji: "sa"))
-        selectedCharacters.append(Character(hiragana: "し", katakana: "シ", romanji: "si"))
-        selectedCharacters.append(Character(hiragana: "す", katakana: "ス", romanji: "su"))
-        selectedCharacters.append(Character(hiragana: "せ", katakana: "セ", romanji: "se"))
-        selectedCharacters.append(Character(hiragana: "そ", katakana: "ソ", romanji: "so"))
+        selectedCharacters.append(Character(id: idNum, hiragana: "さ", katakana: "サ", romanji: "sa")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "し", katakana: "シ", romanji: "si")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "す", katakana: "ス", romanji: "su")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "せ", katakana: "セ", romanji: "se")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "そ", katakana: "ソ", romanji: "so")); idNum += 1
     }
+    
+    //Adding in T-Column
+    if (selectedColumns.tColumn) {
+        selectedCharacters.append(Character(id: idNum, hiragana: "た", katakana: "タ", romanji: "ta")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "ち", katakana: "チ", romanji: "chi")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "つ", katakana: "ツ", romanji: "tsu")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "て", katakana: "テ", romanji: "te")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "と", katakana: "ト", romanji: "to")); idNum += 1
+    }
+    
+    //Adding in N-Column
+    if (selectedColumns.nColumn) {
+        selectedCharacters.append(Character(id: idNum, hiragana: "な", katakana: "ナ", romanji: "na")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "に", katakana: "ニ", romanji: "ni")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "ぬ", katakana: "ヌ", romanji: "nu")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "ね", katakana: "ネ", romanji: "ne")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "の", katakana: "ノ", romanji: "no")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "ん", katakana: "ン", romanji: "n")); idNum += 1
+    }
+    
     
     return selectedCharacters
 }

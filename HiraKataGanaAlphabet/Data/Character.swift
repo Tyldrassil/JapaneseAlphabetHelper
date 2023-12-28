@@ -8,10 +8,11 @@
 import Foundation
 
 
- struct Character {
+struct Character: Identifiable, Hashable {
     
-     var hiragana: String
-     var katakana: String
-     var romanji: String
+    var id: Int
+    var hiragana: String
+    var katakana: String
+    var romanji: String
     
 }

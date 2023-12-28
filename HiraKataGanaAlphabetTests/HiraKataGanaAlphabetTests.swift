@@ -75,6 +75,13 @@ final class HiraKataGanaAlphabetTests: XCTestCase {
         
         XCTAssertEqual(result3.count, 10, "Should be 5 in array")
         
+        selection.nColumn = true
+        selection.tColumn = true
+        
+        let result4 = fetchAlphabetSet(selectedColumns: selection)
+        
+        XCTAssertEqual(result4.count, 21, "an extra from the n column")
+        
     }
     
     func testFetchAlphabetPerformance() throws {

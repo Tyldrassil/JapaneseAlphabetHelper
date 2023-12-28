@@ -7,20 +7,34 @@
 
 import SwiftUI
 
+
+//Just a card that displays a single character
 struct SingleCharacter: View {
     
     var character: Character
     
+    //If false, Hiragana, if true, Katakana
+    var characterType: Bool
+    
     var body: some View {
-        Text(character.hiragana)
-        Text(character.katakana)
-        Text(character.romanji)
+        GeometryReader{ r in
+            RoundedRectangle(
+                cornerRadius: 25.0
+            )
+            .fill(.white)
+            .stroke(.black)
+            .overlay {
+                characterType ?
+                Text(character.katakana).font(.system(size: r.size.width)) :
+                Text(character.hiragana).font(.system(size: r.size.width))
+            }
+        }
+        
+        
     }
 }
 
 #Preview {
     
-    //var exampleCharacter =
-    
-    SingleCharacter(character: Character(hiragana: "あ", katakana: "ア", romanji: "a"))
+    SingleCharacter(character: Character(id: 1, hiragana: "あ", katakana: "ア", romanji: "a"), characterType: false)
 }

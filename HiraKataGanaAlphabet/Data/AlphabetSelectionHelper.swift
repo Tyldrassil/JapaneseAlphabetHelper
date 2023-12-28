@@ -9,7 +9,7 @@ import Foundation
 
 struct ColumnSelector {
     
-    var vowels: Bool
+    var  vowels: Bool
     var kColumn: Bool
     var sColumn: Bool
     var tColumn: Bool
