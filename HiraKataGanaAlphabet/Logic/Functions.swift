@@ -15,7 +15,7 @@ import Foundation
 
 func compareCharacterToInput(character: Character, input: String) -> Bool {
     
-    if (character.romanji == input) {
+    if (character.romanji == input.lowercased()) {
         return true
     } else {
         return false
@@ -32,9 +32,9 @@ func fetchAlphabetSet(selectedColumns: ColumnSelector) -> [Character] {
     //Adding in vowels
     if (selectedColumns.vowels) {
         selectedCharacters.append(Character(id: idNum, hiragana: "あ", katakana: "ア", romanji: "a")); idNum += 1
-        selectedCharacters.append(Character(id: idNum, hiragana: "い", katakana: "イ", romanji: "e")); idNum += 1
-        selectedCharacters.append(Character(id: idNum, hiragana: "う", katakana: "ウ", romanji: "i")); idNum += 1
-        selectedCharacters.append(Character(id: idNum, hiragana: "え", katakana: "エ", romanji: "u")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "い", katakana: "イ", romanji: "i")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "う", katakana: "ウ", romanji: "u")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "え", katakana: "エ", romanji: "e")); idNum += 1
         selectedCharacters.append(Character(id: idNum, hiragana: "お", katakana: "オ", romanji: "o")); idNum += 1
     }
     
