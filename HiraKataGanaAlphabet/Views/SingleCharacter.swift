@@ -25,8 +25,8 @@ struct SingleCharacter: View {
             .stroke(.black)
             .overlay {
                 characterType ?
-                Text(character.katakana).font(.system(size: r.size.width)) :
-                Text(character.hiragana).font(.system(size: r.size.width))
+                Text(character.katakana).font(.system(size: r.size.height > r.size.width ? r.size.width: r.size.height)) :
+                Text(character.hiragana).font(.system(size: r.size.height > r.size.width ? r.size.width: r.size.height))
             }
         }
         

@@ -13,7 +13,8 @@ struct SetOfCharacters: View {
     
     var characterArray: [Character]
     
-    @State var currentChar: Int = 1
+    @State private var currentChar: Int = 0
+    @State private var textInput: String = ""
     
     var body: some View {
         //Used to determine size of screen
@@ -33,22 +34,39 @@ struct SetOfCharacters: View {
                             
                             //Stack symbol over button
                             VStack{
-                                SingleCharacter(character: i, characterType: false)
+                                SingleCharacter(
+                                    character: i,
+                                    characterType: false
+                                )
+                                .frame(
+                                    width: r.size.width*0.8,
+                                    height: r.size.height*0.5)
+                                
+                                //Textbox input field
+                                TextBox(textInput: $textInput)
                                     .frame(
-                                        width: r.size.width*0.8,
-                                        height: r.size.height*0.5)
+                                        width: r.size.width*0.75,
+                                        height: r.size.height*0.1
+                                    )
+                                
+                                
                                 
                                 
                                 //button for checking if correct and scrolling onwards
                                 RoundedRectangle(cornerRadius: 25.0)
                                     .stroke(.black)
                                     .fill(.white)
-                                    .frame(width: r.size.width*0.5, height: r.size.height*0.1)
+                                    .frame(
+                                        width: r.size.width*0.5,
+                                        height: r.size.height*0.1
+                                    )
                                     .overlay {
-                                        Text("\(currentChar)")
+                                        Text("\(currentChar+1)")
                                     }
                                     .onTapGesture {
                                         currentChar += 1
+                                        
+                                        //TODO: Will later check if answer is correct
                                         withAnimation {
                                             s.scrollTo(currentChar)
                                         }
@@ -58,16 +76,17 @@ struct SetOfCharacters: View {
                             .padding(.horizontal, r.size.width*0.1)
                             
                             
+                            
                         }
                     }
                     
                 }
-                .scrollDisabled(false)
+                .scrollDisabled(true)
                 //.scrollPosition(id: currentChar)
                 
             }
             
-        }
+        }//.ignoresSafeArea(.keyboard)
     }
     
     init(selectedCharacters: ColumnSelector) {
@@ -75,6 +94,32 @@ struct SetOfCharacters: View {
         fetchAlphabetSet(selectedColumns: selectedCharacters)
         self.selectedCharacters = selectedCharacters
     }
+    
+}
+
+/**
+ Just the textbox for input of the displayed letter/symbol
+ */
+struct TextBox : View {
+    
+    @Binding var textInput: String
+    
+    var body: some View {
+        GeometryReader { r in
+            RoundedRectangle(cornerRadius:  25.0)
+                .stroke(.black)
+                .fill(.white)
+                .overlay {
+                    TextField(
+                        "Latin Spelling",
+                        text: $textInput
+                    )
+                    .multilineTextAlignment(.center)
+                    .frame(height: r.size.height)
+                }
+        }
+    }
+    
 }
 
 #Preview {
