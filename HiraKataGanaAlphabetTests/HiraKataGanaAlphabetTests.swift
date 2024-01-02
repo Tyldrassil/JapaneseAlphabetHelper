@@ -28,15 +28,17 @@ final class HiraKataGanaAlphabetTests: XCTestCase {
 
     func testcompareCharacterToInput() throws {
         
-        var character1: Character = Character(hiragana: "あ", katakana: "ア", romanji: "a")
-        var character2: Character = Character(hiragana: "し", katakana: "シ", romanji: "shi")
+        let character1: Character = Character(id: 0, hiragana: "あ", katakana: "ア", romanji: "a")
+        let character2: Character = Character(id: 1, hiragana: "し", katakana: "シ", romanji: "shi")
         //var character3: Character = Character(hiragana: "や", katakana: "ヤ", romanji: "ya")
         
         //Check1
-        let result11 = compareCharacterToInput(character: character1, input: "a")
+        let result10 = compareCharacterToInput(character: character1, input: "a")
+        let result11 = compareCharacterToInput(character: character1, input: "A")
         let result12 = compareCharacterToInput(character: character1, input: "b")
         let result13 = compareCharacterToInput(character: character1, input: "1123  12451sfasfkhgjasdniuh")
         
+        XCTAssertTrue(result10)
         XCTAssertTrue(result11)
         XCTAssertFalse(result12)
         XCTAssertFalse(result13)
@@ -86,7 +88,7 @@ final class HiraKataGanaAlphabetTests: XCTestCase {
     
     func testFetchAlphabetPerformance() throws {
         
-        var selection: ColumnSelector = ColumnSelector(vowels: true, kColumn: true, sColumn: true, tColumn: true, nColumn: true, hColumn: true, mColumn: true, rColumn: true, yColumn: true, wColumn: true)
+        let selection: ColumnSelector = ColumnSelector(vowels: true, kColumn: true, sColumn: true, tColumn: true, nColumn: true, hColumn: true, mColumn: true, rColumn: true, yColumn: true, wColumn: true)
         
         self.measure {
             let result = fetchAlphabetSet(selectedColumns: selection)

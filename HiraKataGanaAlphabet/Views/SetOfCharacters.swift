@@ -10,7 +10,6 @@ import SwiftUI
 struct SetOfCharacters: View {
     
     var selectedCharacters: ColumnSelector
-    
     var characterArray: [Character]
     
     @State private var currentChar: Int = 0
@@ -80,13 +79,10 @@ struct SetOfCharacters: View {
         }//.ignoresSafeArea(.keyboard)
     }
     
-    init(selectedCharacters: ColumnSelector) {
-        characterArray =
-        fetchAlphabetSet(selectedColumns: selectedCharacters)
+    init(selectedCharacters: ColumnSelector, randomize: Bool) {
+        characterArray = fetchAlphabetSet(selectedColumns: selectedCharacters, randomize: randomize)
         self.selectedCharacters = selectedCharacters
     }
-    
-    
 }
 
 /**
@@ -165,5 +161,5 @@ struct AdvanceButton : View {
 
 
 #Preview {
-    SetOfCharacters(selectedCharacters: ColumnSelector(vowels: true, kColumn: true, sColumn: true, tColumn: true, nColumn: true, hColumn: false, mColumn: false, rColumn: false, yColumn: false, wColumn: false))
+    SetOfCharacters(selectedCharacters: ColumnSelector(vowels: true, kColumn: true, sColumn: true, tColumn: true, nColumn: true, hColumn: false, mColumn: false, rColumn: false, yColumn: false, wColumn: false), randomize: false)
 }

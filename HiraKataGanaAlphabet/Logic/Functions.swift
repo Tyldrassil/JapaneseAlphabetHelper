@@ -23,10 +23,11 @@ func compareCharacterToInput(character: Character, input: String) -> Bool {
     
 }
 
-func fetchAlphabetSet(selectedColumns: ColumnSelector) -> [Character] {
+func fetchAlphabetSet(selectedColumns: ColumnSelector, randomize: Bool) -> [Character] {
     
     var selectedCharacters: [Character] = []
     var idNum: Int = 0
+    var shuffledCharacters: [Character] = []
     
     
     //Adding in vowels
@@ -50,7 +51,7 @@ func fetchAlphabetSet(selectedColumns: ColumnSelector) -> [Character] {
     //Adding in S-Column
     if (selectedColumns.sColumn) {
         selectedCharacters.append(Character(id: idNum, hiragana: "さ", katakana: "サ", romanji: "sa")); idNum += 1
-        selectedCharacters.append(Character(id: idNum, hiragana: "し", katakana: "シ", romanji: "si")); idNum += 1
+        selectedCharacters.append(Character(id: idNum, hiragana: "し", katakana: "シ", romanji: "shi")); idNum += 1
         selectedCharacters.append(Character(id: idNum, hiragana: "す", katakana: "ス", romanji: "su")); idNum += 1
         selectedCharacters.append(Character(id: idNum, hiragana: "せ", katakana: "セ", romanji: "se")); idNum += 1
         selectedCharacters.append(Character(id: idNum, hiragana: "そ", katakana: "ソ", romanji: "so")); idNum += 1
@@ -73,6 +74,22 @@ func fetchAlphabetSet(selectedColumns: ColumnSelector) -> [Character] {
         selectedCharacters.append(Character(id: idNum, hiragana: "ね", katakana: "ネ", romanji: "ne")); idNum += 1
         selectedCharacters.append(Character(id: idNum, hiragana: "の", katakana: "ノ", romanji: "no")); idNum += 1
         selectedCharacters.append(Character(id: idNum, hiragana: "ん", katakana: "ン", romanji: "n")); idNum += 1
+    }
+    
+    
+    //I really hate this solution. Shuffles a list, then uses that list to make a new list with proper ids.
+    //This is due to id's being used to scroll in SetOfCharacters.
+    if (randomize) {
+        selectedCharacters.shuffle()
+        
+        idNum = 0
+        
+        selectedCharacters.forEach { character in
+            shuffledCharacters.append(Character(id: idNum, hiragana: character.hiragana, katakana: character.katakana, romanji: character.romanji))
+            idNum += 1
+        }
+        
+        return shuffledCharacters
     }
     
     
