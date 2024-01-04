@@ -11,77 +11,80 @@ struct SetOfCharacters: View {
     
     var selectedCharacters: ColumnSelector
     var characterArray: [Character]
+    var alphabet: Bool
     
     @State private var currentChar: Int = 0
     @State private var textInput: String = ""
     
+    //When true, a shake is happening on the single character window
     @State var shakeStart: Bool = false
     
     var body: some View {
         //Used to determine size of screen
         GeometryReader { r in
             
-            //Used to determine position in scroll
+            //Used to determine position in scroll, variable also used to scroll
             ScrollViewReader { s in
                 
-                //used for actual scrolling control
-                ScrollView(.horizontal, showsIndicators: false) {
+                VStack {
                     
-                    //Used for horizontal scrolling
-                    LazyHStack() {
+                    //used for defining scroll area, what gets scrolled
+                    ScrollView(.horizontal, showsIndicators: false) {
                         
-                        //For each letter in selected alphabet, show the letter
-                        ForEach(characterArray) { i in
+                        //Used for horizontal scrolling
+                        LazyHStack() {
                             
-                            //Stack symbol over button
-                            VStack{
+                            //For each letter in selected alphabet, show the letter
+                            ForEach(characterArray) { i in
+                                
+                                //Stack symbol over button
+                                
                                 SingleCharacter(
                                     character: i,
-                                    characterType: false
+                                    characterType: alphabet
                                 )
                                 .frame(
                                     width: r.size.width*0.8,
                                     height: r.size.height*0.5
                                 )
+                                //This defines size of shake
                                 .offset(x: shakeStart ? 30 : 0)
-                                
-                                
-                                //Textbox input field
-                                TextBox(textInput: $textInput)
-                                    .frame(
-                                        width: r.size.width*0.75,
-                                        height: r.size.height*0.1
-                                    )
-                                
-                                
-                                AdvanceButton(
-                                    currentChar: $currentChar,
-                                    textInput: $textInput,
-                                    shakeStart: $shakeStart,
-                                    characterArray: characterArray,
-                                    scrollValue: s, geoValue: r
-                                ).frame(
-                                    width: r.size.width*0.5,
-                                    height: r.size.height*0.1
-                                )
-                                
                             }
-                            .padding(.horizontal, r.size.width*0.1)
                         }
+                        
                     }
+                    .scrollDismissesKeyboard(.never)
+                    .scrollDisabled(false)
+                    //.scrollPosition(id: currentChar)
+                    //Textbox input field
+                    TextBox(textInput: $textInput)
+                        .frame(
+                            width: r.size.width*0.75,
+                            height: r.size.height*0.1
+                        )
+                    
+                    
+                    AdvanceButton(
+                        currentChar: $currentChar,
+                        textInput: $textInput,
+                        shakeStart: $shakeStart,
+                        characterArray: characterArray,
+                        scrollValue: s, geoValue: r
+                    ).frame(
+                        width: r.size.width*0.5,
+                        height: r.size.height*0.1
+                    )
                     
                 }
-                .scrollDisabled(true)
-                //.scrollPosition(id: currentChar)
-                
             }
             
-        }//.ignoresSafeArea(.keyboard)
+        }
     }
     
-    init(selectedCharacters: ColumnSelector, randomize: Bool) {
+    init(selectedCharacters: ColumnSelector, randomize: Bool, alphabet: Bool) {
         characterArray = fetchAlphabetSet(selectedColumns: selectedCharacters, randomize: randomize)
         self.selectedCharacters = selectedCharacters
+        self.alphabet = alphabet
     }
 }
 
@@ -90,6 +93,7 @@ struct SetOfCharacters: View {
  */
 struct TextBox : View {
     
+    //Binding comes from parent view
     @Binding var textInput: String
     
     var body: some View {
@@ -107,7 +111,6 @@ struct TextBox : View {
                 }
         }
     }
-    
 }
 
 /**
@@ -134,6 +137,9 @@ struct AdvanceButton : View {
             .onTapGesture { checkInput() }
     }
     
+    /**
+     function checks if input is correct, if correct it advances to next char, if incorrect it shakes the window.
+     */
     func checkInput() {
         //Checks if input is correct, only advanced on correct.
         if (compareCharacterToInput(character: characterArray[currentChar], input: textInput)) {
@@ -161,5 +167,5 @@ struct AdvanceButton : View {
 
 
 #Preview {
-    SetOfCharacters(selectedCharacters: ColumnSelector(vowels: true, kColumn: true, sColumn: true, tColumn: true, nColumn: true, hColumn: false, mColumn: false, rColumn: false, yColumn: false, wColumn: false), randomize: false)
+    SetOfCharacters(selectedCharacters: ColumnSelector(vowels: true, kColumn: true, sColumn: true, tColumn: true, nColumn: true, hColumn: false, mColumn: false, rColumn: false, yColumn: false, wColumn: false), randomize: false, alphabet: true)
 }

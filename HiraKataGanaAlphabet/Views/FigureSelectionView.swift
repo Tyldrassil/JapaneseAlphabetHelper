@@ -14,6 +14,7 @@ struct FigureSelectionView: View {
     
     @State var selection = ColumnSelector()
     @State var randomize = false
+    @State var alphabet = false
     
     var body: some View {
         
@@ -55,9 +56,16 @@ struct FigureSelectionView: View {
                         
                     }
                     
-                    Toggle(isOn: $randomize) {
-                        Text("Randomize practice?")
-                    }
+                    
+                        Toggle(isOn: $randomize) {
+                            Text("Randomize practice?")
+                                            }
+                        
+                        Toggle(isOn: $alphabet) {
+                            Text(!alphabet ? "Hiragana" : "Katakana")
+                        }
+                    
+                    
                     
                     RoundedRectangle(cornerRadius:  25.0)
                         .stroke(.black)
@@ -67,7 +75,8 @@ struct FigureSelectionView: View {
                                 destination: 
                                     SetOfCharacters(
                                         selectedCharacters: selection,
-                                        randomize: randomize
+                                        randomize: randomize,
+                                        alphabet: alphabet
                                     ),
                                 label: {
                                     Text("Start Practice")
