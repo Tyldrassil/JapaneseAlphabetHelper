@@ -5,6 +5,14 @@
 //  Created by Thomas Ditman on 28/12/2023.
 //
 
+//TODO: Close window/show score when done with final character
+//TODO: Add scoring system
+//TODO: Add incorrect tracker
+//TODO: Add better indication for correct answer
+//TODO: Add remaining characters
+//TODO: Extra: Add building characters from individual strokes. Likely seperate mode
+//TODO: Maybe a little info button to display correct answer if repeatedly wrong answer
+
 import SwiftUI
 
 struct SetOfCharacters: View {
@@ -15,6 +23,7 @@ struct SetOfCharacters: View {
     
     @State private var currentChar: Int = 0
     @State private var textInput: String = ""
+    @State private var isLastChar: Bool = false
     
     //When true, a shake is happening on the single character window
     @State var shakeStart: Bool = false
@@ -49,7 +58,7 @@ struct SetOfCharacters: View {
                                 )
                                 //This defines size of shake
                                 .offset(x: shakeStart ? 30 : 0)
-                            }
+                            }.padding(.horizontal, r.size.width*0.1)
                         }
                         
                     }
@@ -63,17 +72,31 @@ struct SetOfCharacters: View {
                             height: r.size.height*0.1
                         )
                     
+                    if (isLastChar) {
+                        
+                        FinishQuizButton(
+                            scrollValue: s,
+                            geoValue: r
+                        ).frame(
+                            width: r.size.width*0.5,
+                            height: r.size.height*0.1
+                        )
+                        
+                    } else {
+                        
+                        AdvanceButton(
+                            currentChar: $currentChar,
+                            textInput: $textInput,
+                            shakeStart: $shakeStart, 
+                            isLastChar: $isLastChar,
+                            characterArray: characterArray,
+                            scrollValue: s, geoValue: r
+                        ).frame(
+                            width: r.size.width*0.5,
+                            height: r.size.height*0.1
+                        )
+                    }
                     
-                    AdvanceButton(
-                        currentChar: $currentChar,
-                        textInput: $textInput,
-                        shakeStart: $shakeStart,
-                        characterArray: characterArray,
-                        scrollValue: s, geoValue: r
-                    ).frame(
-                        width: r.size.width*0.5,
-                        height: r.size.height*0.1
-                    )
                     
                 }
             }
@@ -85,6 +108,28 @@ struct SetOfCharacters: View {
         characterArray = fetchAlphabetSet(selectedColumns: selectedCharacters, randomize: randomize)
         self.selectedCharacters = selectedCharacters
         self.alphabet = alphabet
+        
+    }
+}
+
+/**
+ Finish run button, takes you back to main screen
+ */
+struct FinishQuizButton : View {
+    
+    @Environment(\.dismiss) private var dismiss
+    
+    let scrollValue: ScrollViewProxy
+    let geoValue: GeometryProxy
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 25.0)
+            .stroke(.black)
+            .fill(.white)
+            .overlay {
+                Text("Finish Quiz")
+            }
+            .onTapGesture { dismiss() }
     }
 }
 
@@ -121,6 +166,7 @@ struct AdvanceButton : View {
     @Binding var currentChar: Int
     @Binding var textInput: String
     @Binding var shakeStart: Bool
+    @Binding var isLastChar: Bool
     
     let characterArray: [Character]
     let scrollValue: ScrollViewProxy
@@ -147,6 +193,11 @@ struct AdvanceButton : View {
             currentChar += 1
             textInput = ""
             
+            //Tells parent view that this is the last letter, for changing finish button
+            if (currentChar == characterArray.count-1) {
+                isLastChar = true
+            }
+            
             withAnimation {
                 scrollValue.scrollTo(currentChar)
             }
@@ -167,5 +218,5 @@ struct AdvanceButton : View {
 
 
 #Preview {
-    SetOfCharacters(selectedCharacters: ColumnSelector(vowels: true, kColumn: true, sColumn: true, tColumn: true, nColumn: true, hColumn: false, mColumn: false, rColumn: false, yColumn: false, wColumn: false), randomize: false, alphabet: true)
+    SetOfCharacters(selectedCharacters: ColumnSelector(vowels: false, kColumn: false, sColumn: false, tColumn: false, nColumn: false, hColumn: false, mColumn: false, rColumn: false, yColumn: false, wColumn: true), randomize: false, alphabet: true)
 }

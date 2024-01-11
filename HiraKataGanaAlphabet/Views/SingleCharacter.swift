@@ -8,9 +8,12 @@
 import SwiftUI
 
 
-//Just a card that displays a single character
-struct SingleCharacter: View {
+/**
+ Just a card that displays a single character
+*/
+ struct SingleCharacter: View {
     
+    //Character to be displayed, contains data for both hiragana and katakana
     var character: Character
     
     //If false, Hiragana, if true, Katakana
@@ -35,6 +38,5 @@ struct SingleCharacter: View {
 }
 
 #Preview {
-    
     SingleCharacter(character: Character(id: 1, hiragana: "あ", katakana: "ア", romanji: "a"), characterType: false)
 }

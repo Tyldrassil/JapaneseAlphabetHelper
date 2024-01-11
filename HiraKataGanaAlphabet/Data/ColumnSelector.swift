@@ -20,4 +20,46 @@ struct ColumnSelector {
     var yColumn: Bool = false
     var wColumn: Bool = false
     
+    
+    func anySelected() -> Bool {
+        
+        if (
+            vowels  ||
+            kColumn ||
+            sColumn ||
+            tColumn ||
+            nColumn ||
+            hColumn ||
+            nColumn ||
+            rColumn ||
+            yColumn ||
+            wColumn 
+        ) {
+            return true
+        }
+        
+        return false
+        
+    }
+    
+    func allSelected() -> Bool {
+        
+        if (
+            vowels  &&
+            kColumn &&
+            sColumn &&
+            tColumn &&
+            nColumn &&
+            hColumn &&
+            nColumn &&
+            rColumn &&
+            yColumn &&
+            wColumn 
+        ) {
+            return true
+        }
+        
+        return false
+    }
+
 }
