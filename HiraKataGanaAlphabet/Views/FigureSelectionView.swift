@@ -40,6 +40,14 @@ struct FigureSelectionView: View {
                                    label: {
                                 Text("Enable all")
                             })
+                        } else {
+                            //Select everything
+                            Button(action: {
+                                deSelectAll()
+                            },
+                                   label: {
+                                Text("Deselect all")
+                            })
                         }
                         
                         
@@ -147,6 +155,19 @@ struct FigureSelectionView: View {
         selection.yColumn = true
         selection.wColumn = true
         
+    }
+    
+    func deSelectAll() {
+        selection.vowels  = false
+        selection.kColumn = false
+        selection.sColumn = false
+        selection.tColumn = false
+        selection.nColumn = false
+        selection.hColumn = false
+        selection.mColumn = false
+        selection.rColumn = false
+        selection.yColumn = false
+        selection.wColumn = false
     }
 }
 
